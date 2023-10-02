@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .clickdisplay {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            background-color: green;
+            color: aliceblue;
+            
+        }
+        #video-explain {
+            position: fixed;
+            top: 80%;
+            left: 80%;
+            opacity: 0.3;
+            pointer-events: none;
+            transition: all 1s ease-in-out;
+            transition-property: opacity, top, left;
+        }
+        #video-explain.active {
+            opacity: 1;
+        }
+        #video-explain video {
+            width: 150px;
+        }
+        #explanation {
+            color: black;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <button id="click1" class="clickdisplay">HelpMeOut</button>
+        <button id="click2" class="clickdisplay">HNG</button>
+        <button id="click3" class="clickdisplay">Will you Pass</button>
+        <button id="click4" class="clickdisplay">You can get</button>
+        <button id="click5" class="clickdisplay">Explore</button>
+        <button id="click6" class="clickdisplay">You can pass</button>
+        <div id="video-explain">
+            <img src="./images.jpeg" alt="">
+            <p id="explanation" ></p>
+        </div>
+    </main>
+    <script>
+        const buttonExplanations = {
+            'click1': 'Learn how to screen record',
+            'click2': 'HNG let me pass in peace',
+            'click3': 'Yes i Will pass',
+            'click4': 'I dont wan to come back again.',
+            'click5': 'I dont want to go',
+            'click6': 'Yes surely'
+        };
+        const videoExplainCon = document.getElementById('video-explain');
+        const explanationElm = document.getElementById('explanation');
+        // Add click event listeners to each button
+        document.getElementById('click1').addEventListener('click', () => pageAssistant('click1'));
+        document.getElementById('click2').addEventListener('click', () => pageAssistant('click2'));
+        document.getElementById('click3').addEventListener('click', () => pageAssistant('click3'));
+        document.getElementById('click4').addEventListener('click', () => pageAssistant('click4'));
+        document.getElementById('click5').addEventListener('click', () => pageAssistant('click5'));
+        document.getElementById('click6').addEventListener('click', () => pageAssistant('click6'));
+        function pageAssistant(clickId) {
+            const explanation = buttonExplanations[clickId];
+            const rect = document.getElementById(clickId).getBoundingClientRect();
+            console.log(rect);
+            const buttonPosition = {
+                top: rect.top,
+                left: rect.left,
+            };
+            // Move the video container close to the clicked button
+            videoExplainCon.style.top = `${buttonPosition.top}px`;
+            videoExplainCon.style.left = `${buttonPosition.left}px`;
+            // Show the video container by adding the "active" class
+            videoExplainCon.classList.add('active');
+            if (videoExplainCon.classList.contains('active')) {
+                explanationElm.textContent = explanation;
+            }
+        }
+    </script>
+</body>
+</html>
